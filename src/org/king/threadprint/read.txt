@@ -1,0 +1,13 @@
+http://mouselearnjava.iteye.com/blog/1949228
+
+最近发现公司有份笔试试卷中有道多线程的题目：有三个线程分别打印A、B、C,请用多线程编程实现，在屏幕上循环打印10次ABCABC… 
+
+这个最早好像是迅雷的面试题目吧，看到了然后就想重温一下这个题目的解决方法。 
+
+在本文中，给出了五种这个题目的解决方法： 
+
+使用sleep
+使用synchronized, wait和notifyAll
+使用Lock 和 Condition
+使用Semaphore
+使用AtomicInteger

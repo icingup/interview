@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="algorithms" default="jar" basedir=".">
+	<description>
+		algorithms build file
+    </description>
+
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="src.java" location="${src}" />
+	<property name="target" location="target" />
+	<property name="target.classes" value="${target}/classes" />
+	<property name="lib.dir" value="lib" />
+	<property name="sortcompare-class" value="org.king.algorithms.jversion.sort.SortCompare" />
+	<property name="sortcompare-jar" location="${target}/sortcompare" />
+
+	<path id="libraries.path">
+		<fileset dir="${lib.dir}" />
+	</path>
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<delete dir="${target}" />
+		<mkdir dir="${target}" />
+		<mkdir dir="${target.classes}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the source ">
+		<javac srcdir="${src.java}" destdir="${target.classes}" classpathref="libraries.path" includeAntRuntime="false" encoding="utf-8" source="1.8" target="1.8" debug="true">
+			<compilerarg value="-Xlint:unchecked" />
+		</javac>
+		<copy todir="${target.classes}">
+			<fileset dir="${src.java}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	
+
+	<target name="sortcompare-jar" depends="compile">
+		<jar destfile="${sortcompare-jar}.jar" basedir="${target.classes}">
+			<include name="**/*.class" />
+			<manifest>
+				<attribute name="Main-Class" value="${sortcompare-class}" />
+			</manifest>
+			<zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+		</jar>
+	</target>
+
+
+	<target name="jar" depends="sortcompare-jar">
+		<echo>build finished ${TODAY}</echo>
+	</target>
+
+	<target name="clean" description="clean up">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
+</project>
